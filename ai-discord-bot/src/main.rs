@@ -36,8 +36,7 @@ impl EventHandler for Handler {
             return;
         };
 
-        let api_key = std::env::var("API_KEY").expect("NO API KEY");
-
+        let api_key = std::env::var("API_KEY").expect("NO API KEY"); 
         println!("質問開始!:{}",question);
         let mut histories = self.histories.lock().await;
         let histroty = histories.entry(msg.channel_id).or_insert_with(Vec::new);
@@ -83,7 +82,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let token = std::env::var("DISCORD_TOKEN").expect("NO DISCORD TOKEN");
     let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
     let handler = Handler {
-    histories: Arc::new(Mutex::new(HashMap::new())),
+        histories: Arc::new(Mutex::new(HashMap::new())),
     };
     let mut client = Client::builder(&token, intents)
         .event_handler(handler)
